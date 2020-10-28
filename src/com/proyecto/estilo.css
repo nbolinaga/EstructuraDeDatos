@@ -1,0 +1,33 @@
+graph {
+	fill-color: #9BC53D;
+}
+
+node {
+    text-background-mode: rounded-box;
+    text-background-color: #697268;
+    text-color: white;
+    fill-color: #D1495B;
+    text-style: bold;
+    text-size: 10px;
+    z-index: 100;
+    text-alignment: under;
+    text-padding: 5px;
+}
+edge {
+    shape: line;
+    fill-color: black;
+    stroke-mode: dots;
+    stroke-width: 1px;
+    stroke-color: black;
+    text-style: bold;
+    text-offset: 0px, 20px;
+    text-size: 10px;
+    text-background-mode: rounded-box;
+    text-alignment: along;
+    text-padding: 5px;
+}
+
+node:clicked {
+	fill-color: #2E86AB;
+	text-size: 20px;
+}
