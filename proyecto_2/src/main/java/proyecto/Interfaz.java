@@ -531,4 +531,72 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel respuestaLabel;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
+      
+    String texto = "";
+
+    /**
+     *Se recorre el arbol en preorden y se guarda los datos de cada nodo y su padre en un 
+     * texto.
+     * @param n
+     * Nodo a recorrer.
+     */
+    public void preordenTxt(Nodo n){
+        if(n!=null){
+            texto+=n.info+","+n.padre.info+"\n";
+            preordenTxt(n.left);
+            preordenTxt(n.right);
+        }
+    }
+    
+    /**
+     *Se crea un archivo txt guardando la linea de texto luego de recorrer el árbol.
+     * @throws IOException
+     * Por si se genera un error.
+     */
+    public void guardarArbol() throws IOException{
+        preordenTxt(ab.getRoot());
+//        String nombreTxt = JOptionPane.showInputDialog("Ingrese el nombre del archivo.");//Validar. Todo pegado. Nada que Windows no acepte.
+        //Guardar el archivo en la carpeta asignada.
+        try {
+            File archivo = new File("src\\test\\java\\demo.txt");
+            FileWriter fw = new FileWriter(archivo);
+                fw.write(texto);
+                fw.close();
+                JOptionPane.showMessageDialog(null, "Archivo guardado.");
+            }
+        catch (IOException e) {
+            JOptionPane.showMessageDialog(null,"Ocurrio un error.","Error",0);
+         } 
+    }
+    
+    /**
+     *Lee el archivo de texto y lo separa en de manera que se pueda reconstruir el árbol.
+     * @throws IOException
+     * Por si se genera un error.
+     */
+    public void leerArbol ()throws IOException{
+        String linea;
+        String datos = "";
+        String[] listaDatos = null;
+        File archivo = new File("src\\test\\java\\demo.txt");
+        //Clase para leer los archivos.
+        FileReader fr = new FileReader(archivo);
+        BufferedReader br = new BufferedReader(fr);
+        //Guarda el contenido del archivo en un String datos.
+        while((linea = br.readLine()) != null) {
+            if (!linea.isEmpty()) {
+                datos += linea + "\n";
+            }
+        }
+        //Guarda el contenido del String datos en un Array listaDatos.
+        //Cada nueva linea del String datos es un nuevo elemento en el Array.
+        if (!"".equals(datos)) {
+            listaDatos = datos.split("\n");
+        }
+        //Recorre el Array para asignarlo a los campos requeridos
+        for (int i = 0; i < listaDatos.length; i++) {
+            String [] arreglo = listaDatos[i].split(",");
+            ab.addHijo(arreglo[0], ab.getRoot());//Crear clase construir arbol
+        }
+    }
 }
